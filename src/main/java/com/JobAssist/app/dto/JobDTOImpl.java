@@ -3,9 +3,13 @@ package com.JobAssist.app.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.JobAssist.app.entities.Job;
 import com.JobAssist.app.entities.Skill;
 
+
+@Component
 public class JobDTOImpl {
 	public JobDTO convertJobDTO(Job job) {
         List<SkillDTO> skillDTOs = job.getSkills().stream()

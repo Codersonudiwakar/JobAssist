@@ -17,6 +17,12 @@ public class Skill {
     @JoinColumn(name = "job_id")
     private Job job;
 
+	public Skill() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Skill(Long id, String skillName, Job job) {
 		super();
 		this.id = id;
