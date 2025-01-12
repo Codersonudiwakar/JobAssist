@@ -16,10 +16,8 @@ public class Skill {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
     private Job job;
-
 	public Skill() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 

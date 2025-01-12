@@ -1,10 +1,12 @@
-package com.JobAssist.app.dto;
+package com.JobAssist.app.utils;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.JobAssist.app.dto.JobDTO;
+import com.JobAssist.app.dto.SkillDTO;
 import com.JobAssist.app.entities.Job;
 import com.JobAssist.app.entities.Skill;
 

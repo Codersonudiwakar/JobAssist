@@ -6,11 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/jobs")
+@CrossOrigin(origins = "http://localhost:3000")
 public class JobController {
 
     @Autowired
@@ -26,7 +28,9 @@ public class JobController {
     // Endpoint to get a job by ID
     @GetMapping("/{id}")
     public ResponseEntity<JobDTO> getJobById(@PathVariable Long id) {
-        return jobService.getJobById(id);
+    //    return jobService.getJobById(id);
+    	 ResponseEntity<JobDTO> job = jobService.getJobById(id);
+    	 return job;
     }
 
     // Endpoint to create a new job
@@ -42,6 +46,23 @@ public class JobController {
         return updatedJob.map(ResponseEntity::ok)
                          .orElseGet(() -> ResponseEntity.notFound().build());
     }
+//    @GetMapping("/search")
+//    public ResponseEntity<List<JobDTO>> searchJobs(@RequestParam String keyword) {
+//        if (keyword == null || keyword.trim().isEmpty()) {
+//            return ResponseEntity.badRequest().body(Collections.emptyList());
+//        }
+//        List<JobDTO> jobDTOs = jobService.searchJobsByKeyword(keyword);
+//        return ResponseEntity.ok(jobDTOs);
+//    }
+    
+    @GetMapping("/search")
+    public ResponseEntity<List<JobDTO>> searchJobs(@RequestParam String keyword) {
+        List<JobDTO> jobDTOs = jobService.searchJobsByKeyword(keyword);
+        return ResponseEntity.ok(jobDTOs);
+    }
+
+
+
 
     // Endpoint for deleting a job
     @DeleteMapping("/{id}")
@@ -53,4 +74,5 @@ public class JobController {
             return ResponseEntity.notFound().build();
         }
     }
+    
 }

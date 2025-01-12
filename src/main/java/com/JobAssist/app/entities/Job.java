@@ -27,9 +27,9 @@ public class Job {
     @Column(name = "work_location")
     private String workLocation;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "job_id")
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Skill> skills = new ArrayList<>();
+
 
     @Column(name = "job_responsibilities", columnDefinition = "TEXT")
     private String jobResponsibilities;

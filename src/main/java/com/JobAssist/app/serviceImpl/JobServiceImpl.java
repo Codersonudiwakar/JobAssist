@@ -10,11 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.JobAssist.app.dto.JobDTO;
-import com.JobAssist.app.dto.JobDTOImpl;
 import com.JobAssist.app.entities.Job;
 import com.JobAssist.app.repository.JobRepository;
 import com.JobAssist.app.repository.SkillRepository;
 import com.JobAssist.app.service.JobService;
+import com.JobAssist.app.utils.JobDTOImpl;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -38,9 +38,6 @@ public class JobServiceImpl implements JobService {
 		    return jobDTOs;
 	}
 	
-	
-	
-
 	@Override
 	public ResponseEntity<JobDTO> getJobById(Long id) {
 	    Optional<Job> job = jobRepository.findById(id);
@@ -59,14 +56,6 @@ public class JobServiceImpl implements JobService {
 	    Job savedJob = jobRepository.save(job);
 	    return jobDtoImpl.convertJobDTO(savedJob);
 	}
-	
-	@Override
-	public List<JobDTO> searchJobs(String postName, String companyName, String workLocation) {
-        List<Job> jobs = jobRepository.searchJobs(postName, companyName, workLocation);
-        return jobs.stream()
-                .map(jobDtoImpl::convertJobDTO)
-                .collect(Collectors.toList());
-    }
 
 	@Override
 	public Optional<JobDTO> updateJob(Long id, JobDTO jobDTO) {
@@ -77,6 +66,16 @@ public class JobServiceImpl implements JobService {
 	public boolean deleteJob(Long id) {
 		
 		return false;
+	}
+
+	@Override
+	public List<JobDTO> searchJobsByKeyword(String keyword) {
+		 List<Job> jobs = jobRepository.searchByPostNameOrSkill(keyword);
+		    List<JobDTO> jobDTOs = new ArrayList<>();
+		    for (Job job : jobs) {
+		        jobDTOs.add(jobDtoImpl.convertJobDTO(job));
+		    }
+		    return jobDTOs;
 	}
 
 

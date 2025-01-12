@@ -28,14 +28,14 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     // Find jobs that require specific skills
     @Query("SELECT j FROM Job j JOIN j.skills s WHERE s.skillName = :skillName")
     List<Job> findJobsBySkill(@Param("skillName") String skillName);
+   
+    @Query("SELECT DISTINCT j FROM Job j " +
+    	       "LEFT JOIN j.skills s " +
+    	       "WHERE LOWER(j.postName) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+    	       "OR LOWER(s.skillName) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    	List<Job> searchByPostNameOrSkill(@Param("keyword") String keyword);
 
- //   List<Job> findByJobExperience(String jobExperience);
-    
-    @Query("SELECT j FROM Job j WHERE " +
-            "(:postName IS NULL OR j.postName LIKE %:postName%) AND " +
-            "(:companyName IS NULL OR j.companyName LIKE %:companyName%) AND " +
-            "(:workLocation IS NULL OR j.workLocation LIKE %:workLocation%)")
-     List<Job> searchJobs(String searchInputForJob);
+
 }
 
 

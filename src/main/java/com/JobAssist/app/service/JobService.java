@@ -12,7 +12,7 @@ import com.JobAssist.app.dto.JobDTO;
 public interface JobService {
     List<JobDTO> getAllJobs();
     ResponseEntity<JobDTO> getJobById(Long id);
-    public List<JobDTO> searchJobs(String postName, String companyName, String workLocation);
+    public List<JobDTO> searchJobsByKeyword(String keyword);
     JobDTO createJob(JobDTO jobDTO);
     Optional<JobDTO> updateJob(Long id, JobDTO jobDTO);
     boolean deleteJob(Long id);
