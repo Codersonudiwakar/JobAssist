@@ -1,7 +1,9 @@
 package com.JobAssist.app.utils;
 
+
 import com.JobAssist.app.dto.AddressDTO;
 import com.JobAssist.app.entities.Address;
+import com.JobAssist.app.entities.UserProfile;
 
 public class AddressConverter {
 
@@ -10,11 +12,16 @@ public class AddressConverter {
 
         AddressDTO dto = new AddressDTO();
         dto.setId(address.getId());
-        dto.setStreet(address.getStreet());
         dto.setCity(address.getCity());
         dto.setState(address.getState());
+        dto.setPostalCode(address.getPostalCode());
         dto.setCountry(address.getCountry());
-        dto.setZipCode(address.getZipCode());
+
+        // Extracting userId instead of full UserProfile to avoid circular reference
+        UserProfile user = address.getUser();
+        if (user != null) {
+            dto.setUserId(user.getId());
+        }
 
         return dto;
     }
@@ -24,11 +31,17 @@ public class AddressConverter {
 
         Address address = new Address();
         address.setId(dto.getId());
-        address.setStreet(dto.getStreet());
         address.setCity(dto.getCity());
         address.setState(dto.getState());
+        address.setPostalCode(dto.getPostalCode());
         address.setCountry(dto.getCountry());
-        address.setZipCode(dto.getZipCode());
+
+        // UserProfile mapping will need additional logic if necessary
+        if (dto.getUserId() != null) {
+            UserProfile user = new UserProfile();
+            user.setId(dto.getUserId());
+            address.setUser(user);
+        }
 
         return address;
     }

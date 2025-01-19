@@ -1,29 +1,30 @@
 package com.JobAssist.app.utils;
 
-import com.JobAssist.app.dto.SkillDTO;
-import com.JobAssist.app.entities.Skill;
+
+import com.JobAssist.app.entities.UserSkills;
+import com.JobAssist.app.dto.UserSkillDTO;
+import com.JobAssist.app.entities.UserProfile;
 
 public class SkillConverter {
 
-    public static SkillDTO toDTO(Skill skill) {
+    public static UserSkillDTO toDTO(UserSkills skill) {
         if (skill == null) return null;
 
-        SkillDTO dto = new SkillDTO();
+        UserSkillDTO dto = new UserSkillDTO();
         dto.setId(skill.getId());
         dto.setName(skill.getName());
-        dto.setProficiency(skill.getProficiency());
-
+        dto.setProficiencyLevel(skill.getProficiencyLevel());
         return dto;
     }
 
-    public static Skill toEntity(SkillDTO dto) {
-        if (dto == null) return null;
+    public static UserSkills toEntity(UserSkillDTO skillDTO) {
+        if (skillDTO == null) return null;
 
-        Skill skill = new Skill();
-        skill.setId(dto.getId());
-        skill.setName(dto.getName());
-        skill.setProficiency(dto.getProficiency());
-
+        UserSkills skill = new UserSkills();
+        skill.setId(skillDTO.getId());
+        skill.setName(skillDTO.getName());
+        skill.setProficiencyLevel(skillDTO.getProficiencyLevel());
         return skill;
     }
 }
+

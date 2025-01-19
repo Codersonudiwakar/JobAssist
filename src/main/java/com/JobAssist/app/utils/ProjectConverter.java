@@ -1,9 +1,8 @@
 package com.JobAssist.app.utils;
 
-package com.JobAssist.app.util;
-
 import com.JobAssist.app.dto.ProjectDTO;
 import com.JobAssist.app.entities.Project;
+import com.JobAssist.app.entities.UserProfile;
 
 public class ProjectConverter {
 
@@ -16,6 +15,12 @@ public class ProjectConverter {
         dto.setDescription(project.getDescription());
         dto.setStartDate(project.getStartDate());
         dto.setEndDate(project.getEndDate());
+
+        // Map userId from UserProfile
+        UserProfile user = project.getUser();
+        if (user != null) {
+            dto.setUserId(user.getId());
+        }
 
         return dto;
     }
@@ -30,6 +35,14 @@ public class ProjectConverter {
         project.setStartDate(dto.getStartDate());
         project.setEndDate(dto.getEndDate());
 
+        // Map UserProfile if userId exists
+        if (dto.getUserId() != null) {
+            UserProfile user = new UserProfile();
+            user.setId(dto.getUserId());
+            project.setUser(user);
+        }
+
         return project;
     }
 }
+

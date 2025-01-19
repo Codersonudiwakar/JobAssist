@@ -1,9 +1,9 @@
 package com.JobAssist.app.repository;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.*;
+import com.JobAssist.app.entities.Users;
 
-import com.JobAssist.app.entities.UserProfile;
+import java.util.Optional;
 
-@Repository
-public interface UserRepository extends JpaRepository<UserProfile, Long> {}
+public interface UserRepository extends JpaRepository<Users, Long> {
+    Optional<Users> findByEmail(String email);
+}
