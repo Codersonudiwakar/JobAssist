@@ -28,7 +28,7 @@ public class Job {
     private String workLocation;
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Skill> skills = new ArrayList<>();
+    private List<JobSkill> skills = new ArrayList<>();
 
 
     @Column(name = "job_responsibilities", columnDefinition = "TEXT")
@@ -39,79 +39,112 @@ public class Job {
 
     @Column(name = "job_experience")
     private String jobExperience;
+    
+    
+    @Column(name = "job_apply_link")
+    private String applyLink;
 
-    // Getters and setters
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getPostName() {
-        return postName;
-    }
 
-    public void setPostName(String postName) {
-        this.postName = postName;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getCompanyName() {
-        return companyName;
-    }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+	public String getPostName() {
+		return postName;
+	}
 
-    public String getJobDescription() {
-        return jobDescription;
-    }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
-    }
+	public void setPostName(String postName) {
+		this.postName = postName;
+	}
 
-    public String getWorkLocation() {
-        return workLocation;
-    }
 
-    public void setWorkLocation(String workLocation) {
-        this.workLocation = workLocation;
-    }
+	public String getCompanyName() {
+		return companyName;
+	}
 
-    public List<Skill> getSkills() {
-        return skills;
-    }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
-    }
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
-    public String getJobResponsibilities() {
-        return jobResponsibilities;
-    }
 
-    public void setJobResponsibilities(String jobResponsibilities) {
-        this.jobResponsibilities = jobResponsibilities;
-    }
+	public String getJobDescription() {
+		return jobDescription;
+	}
 
-    public String getJobQualifications() {
-        return jobQualifications;
-    }
 
-    public void setJobQualifications(String jobQualifications) {
-        this.jobQualifications = jobQualifications;
-    }
+	public void setJobDescription(String jobDescription) {
+		this.jobDescription = jobDescription;
+	}
 
-    public String getJobExperience() {
-        return jobExperience;
-    }
 
-    public void setJobExperience(String jobExperience) {
-        this.jobExperience = jobExperience;
-    }
+	public String getWorkLocation() {
+		return workLocation;
+	}
+
+
+	public void setWorkLocation(String workLocation) {
+		this.workLocation = workLocation;
+	}
+
+
+	public List<JobSkill> getSkills() {
+		return skills;
+	}
+
+
+	public void setSkills(List<JobSkill> skills) {
+		this.skills = skills;
+	}
+
+
+	public String getJobResponsibilities() {
+		return jobResponsibilities;
+	}
+
+
+	public void setJobResponsibilities(String jobResponsibilities) {
+		this.jobResponsibilities = jobResponsibilities;
+	}
+
+
+	public String getJobQualifications() {
+		return jobQualifications;
+	}
+
+
+	public void setJobQualifications(String jobQualifications) {
+		this.jobQualifications = jobQualifications;
+	}
+
+
+	public String getJobExperience() {
+		return jobExperience;
+	}
+
+
+	public void setJobExperience(String jobExperience) {
+		this.jobExperience = jobExperience;
+	}
+
+
+	public String getApplyLink() {
+		return applyLink;
+	}
+
+
+	public void setApplyLink(String applyLink) {
+		this.applyLink = applyLink;
+	}
+
+   
 }
 
 

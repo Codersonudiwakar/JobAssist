@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.JobAssist.app.dto.JobDTO;
 import com.JobAssist.app.dto.SkillDTO;
 import com.JobAssist.app.entities.Job;
-import com.JobAssist.app.entities.Skill;
+import com.JobAssist.app.entities.JobSkill;
 
 
 @Component
@@ -17,7 +17,6 @@ public class JobDTOImpl {
         List<SkillDTO> skillDTOs = job.getSkills().stream()
                 .map(skill -> new SkillDTO(skill.getId(), skill.getSkillName()))
                 .collect(Collectors.toList());
-
         return new JobDTO(
                 job.getId(),
                 job.getPostName(),
@@ -27,7 +26,8 @@ public class JobDTOImpl {
                 skillDTOs,
                 job.getJobResponsibilities(),
                 job.getJobQualifications(),
-                job.getJobExperience()
+                job.getJobExperience(),
+                job.getApplyLink()
         );
     }
 	 public Job convertToJobEntity(JobDTO jobDTO) {
@@ -41,8 +41,8 @@ public class JobDTOImpl {
 	        job.setJobQualifications(jobDTO.getJobQualifications());
 	        job.setJobExperience(jobDTO.getJobExperience());
 
-	        List<Skill> skills = jobDTO.getSkills().stream()
-	                .map(skillDTO -> new Skill(skillDTO.getId(), skillDTO.getSkillName(), job))
+	        List<JobSkill> skills = jobDTO.getSkills().stream()
+	                .map(skillDTO -> new JobSkill(skillDTO.getId(), skillDTO.getSkillName(), job))
 	                .collect(Collectors.toList());
 	        job.setSkills(skills);
 

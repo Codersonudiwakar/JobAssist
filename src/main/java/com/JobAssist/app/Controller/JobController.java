@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/jobs")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/JOBASSIST/jobs")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class JobController {
 
     @Autowired
@@ -32,7 +32,6 @@ public class JobController {
     	 ResponseEntity<JobDTO> job = jobService.getJobById(id);
     	 return job;
     }
-
     // Endpoint to create a new job
     @PostMapping("/create")
     public ResponseEntity<JobDTO> createJob(@RequestBody JobDTO jobDTO) {

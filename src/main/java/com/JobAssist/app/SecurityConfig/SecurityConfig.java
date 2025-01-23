@@ -2,6 +2,9 @@ package com.JobAssist.app.SecurityConfig;
 
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +18,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.JobAssist.app.service.CustomUserDetailsService;
 
@@ -35,11 +42,11 @@ public class SecurityConfig {
 
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+		http.cors().and().csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/signup","/api/users/login").permitAll() // Public endpoints
-                .requestMatchers("/api/admin/**").hasRole("ADMIN") // Admin-only endpoints
-                .requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN") // User endpoints
+                .requestMatchers("/JOBASSIST/public/**").permitAll()
+                .requestMatchers("/JOBASSIST/admin/**").hasRole("ADMIN")
+                .requestMatchers("/JOBASSIST/private/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
             )
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -57,6 +64,30 @@ public class SecurityConfig {
 	            .passwordEncoder(passwordEncoder)
 	            .and()
 	            .build();
+	    }
+	 
+	 @Bean
+	    public CorsConfigurationSource corsConfigurationSource() {
+	        CorsConfiguration configuration = new CorsConfiguration();
+	        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+	        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+	        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+	        configuration.setAllowCredentials(true);  // Allow credentials (cookies, authorization headers, etc.)
+	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        source.registerCorsConfiguration("/**", configuration);
+	        return source;
+	    }
+	 
+	 @Bean
+	    public CorsFilter  corsFilter() {
+	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        CorsConfiguration config = new CorsConfiguration();
+	        config.setAllowCredentials(true);
+	        config.addAllowedOriginPattern("*"); // Allow all origins
+	        config.addAllowedHeader("*");       // Allow all headers
+	        config.addAllowedMethod("*");       // Allow all HTTP methods
+	        source.registerCorsConfiguration("/**", config);
+	        return new CorsFilter(source);
 	    }
 }
 

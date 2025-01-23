@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Table;
 
 @Entity
-public class Skill {
+public class JobSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,12 +15,12 @@ public class Skill {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
     private Job job;
-	public Skill() {
+	public JobSkill() {
 		super();
 	}
 
 
-	public Skill(Long id, String skillName, Job job) {
+	public JobSkill(Long id, String skillName, Job job) {
 		super();
 		this.id = id;
 		this.skillName = skillName;

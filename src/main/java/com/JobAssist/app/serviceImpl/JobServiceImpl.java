@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.JobAssist.app.dto.JobDTO;
 import com.JobAssist.app.entities.Job;
 import com.JobAssist.app.repository.JobRepository;
-import com.JobAssist.app.repository.SkillRepository;
+import com.JobAssist.app.repository.JobSkillRepository;
 import com.JobAssist.app.service.JobService;
 import com.JobAssist.app.utils.JobDTOImpl;
 
@@ -23,7 +23,7 @@ public class JobServiceImpl implements JobService {
     private JobRepository jobRepository;
 
     @Autowired
-    private SkillRepository skillRepository;
+    private JobSkillRepository jobSkillRepository;
     
     @Autowired
     private JobDTOImpl jobDtoImpl;
